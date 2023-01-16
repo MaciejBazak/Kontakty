@@ -23,19 +23,7 @@
                 @Html.DisplayNameFor(model => model.Contacts[0].Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Contacts[0].Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contacts[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contacts[0].Subcategory)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Contacts[0].TelephoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contacts[0].DoB)
             </th>
             <th></th>
         </tr>
@@ -53,19 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subcategory)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.TelephoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoB)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ContactId">Edit</a> |

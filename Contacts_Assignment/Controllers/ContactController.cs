@@ -21,6 +21,7 @@ namespace Contacts_Assignment.Controllers
             _categoryDbContext = categoryContext;
         }
 
+        // Akcja GET, przekazania widoku gdy osoba nie jest zalogowana. Do widoku przekazywany jest odpowiedni model.
         public async Task<IActionResult> ContactsLoggedOut()
         {
             ContactViewModel contactViewModel = new ContactViewModel();
@@ -30,7 +31,7 @@ namespace Contacts_Assignment.Controllers
         }
 
 
-        // GET: Contact
+        // Akcja GET, przekazania widoku gdy osoba jest zalogowana. Widok z wieksza liczba mozliwosci. Do widoku przekazywany jest odpowiedni model.
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -41,7 +42,7 @@ namespace Contacts_Assignment.Controllers
             return View(contactViewModel);
         }
 
-        // GET: Contact/Details/5
+        // Akcja GET, przekazania widoku szczegolow kontaktu. Widok zmienia sie zaleznie od tego czy osoba jest zalogowana czy nie.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Contacts == null)
@@ -59,7 +60,8 @@ namespace Contacts_Assignment.Controllers
             return View(contact);
         }
 
-        // GET: Contact/Create
+        // Akcja GET, ktora przenosi do widoku stworzenia nowego kontaktu. W ViewBagu przekazana jest lista kategorii na podstawie, ktorej tworzona jest dropdown list.
+        [Authorize]
         public async Task<IActionResult> CreateAsync()
         {
             List<SelectListItem> categories = new List<SelectListItem>();
@@ -74,9 +76,7 @@ namespace Contacts_Assignment.Controllers
             return View();
         }
 
-        // POST: Contact/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Akcja, POST która jeśli model przeszedl walidacje to dodaje nowy kontakt do bazy danych oraz przechodzi do widoku z lista wszystkich kontaktow.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ContactId,FirstName,LastName,Email,Password,Category,Subcategory,TelephoneNumber,DoB")] Contact contact)
@@ -90,7 +90,8 @@ namespace Contacts_Assignment.Controllers
             return View(contact);
         }
 
-        // GET: Contact/Edit/5
+        // Akcja GET, która przenosi do widoku edycji kontaktu. 
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Contacts == null)
@@ -118,9 +119,7 @@ namespace Contacts_Assignment.Controllers
             return View(contact);
         }
 
-        // POST: Contact/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Akcja, POST która jeśli model przeszedl walidacje to aktualizuje kontakt oraz przechodzi do widoku z lista wszystkich kontaktow.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ContactId,FirstName,LastName,Email,Password,Category,Subcategory,TelephoneNumber,DoB")] Contact contact)
@@ -153,7 +152,8 @@ namespace Contacts_Assignment.Controllers
             return View(contact);
         }
 
-        // GET: Contact/Delete/5
+        // Akcja, Get która zwraca widok szczegolowy z zapytaniem czy na pewno chce sie usunac kontakt.
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Contacts == null)
@@ -171,7 +171,7 @@ namespace Contacts_Assignment.Controllers
             return View(contact);
         }
 
-        // POST: Contact/Delete/5
+        // Akcja POST, która usuwa kontakt z bazy danych oraz przeskakuje na widok listy kontaktów.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
